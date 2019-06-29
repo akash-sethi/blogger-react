@@ -1,26 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {HomePage} from "./components/pages/HomePage";
+import LoginPage from "./components/pages/LoginPage";
+import SignupPage from "./components/pages/SignupPage";
+import { connect } from 'react-redux';
+import UserRoute from "./components/routes/UserRoute";
+import GuestRoute from "./components/routes/GuestRoute";
+import PropTypes from 'prop-types';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+const App = ({location}) => (
+    <div className="ui container">
+        <UserRoute location={location} path='/' exact  component={HomePage}/>
+        <GuestRoute location={location} path='/login' exact component={LoginPage}/>
+        <GuestRoute location={location} path='/signup' exact component={SignupPage}/>
     </div>
-  );
-}
+);
 
-export default App;
+App.propTypes = {
+    location: PropTypes.shape({
+        pathname: PropTypes.string.isRequired
+    }).isRequired,
+};
+
+
+export default connect()(App);
