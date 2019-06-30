@@ -19,7 +19,7 @@ function mapStateToProps(state){
 
 GuestRoute.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
-    component: PropTypes.func.isRequired
+    component: PropTypes.object.isRequired
 };
 
 export default connect(mapStateToProps)(GuestRoute)
