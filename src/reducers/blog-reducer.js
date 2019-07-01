@@ -1,10 +1,10 @@
-import {BLOG_LIST} from "../types/action.types";
+import {BLOG_DETAIL } from "../types/action.types";
 
 export const blog = (state={}, action) => {
     switch (action.type) {
-        case BLOG_LIST:
-            return action.blogs;
+        case BLOG_DETAIL:
+            return action.blog;
         default:
-            return [];
+            return {};
     }
 };

@@ -9,16 +9,17 @@ import {applyMiddleware, createStore} from "redux";
 import rootReducer from "./root-reducer";
 import thunk from 'redux-thunk'
 import {composeWithDevTools} from "redux-devtools-extension";
-import {decodeJWT, getJWT} from "./utils";
+import {decodeJWT, getJWT} from "./utils/utils";
 import {userLoggedIn} from "./actions/user";
+import setAuthorizationHeader from "./utils/setAuthorizationHeader";
 
 const store = createStore(
     rootReducer,
     composeWithDevTools(applyMiddleware(thunk)));
 
 if(getJWT()) {
-    console.log('res: ', decodeJWT(getJWT()));
-    store.dispatch(userLoggedIn(decodeJWT(getJWT())))
+    store.dispatch(userLoggedIn(decodeJWT(getJWT())));
+    setAuthorizationHeader(getJWT());
 }
 
 ReactDOM.render(

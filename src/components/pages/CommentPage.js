@@ -3,30 +3,33 @@ import { Comment,Header } from "semantic-ui-react";
 import CommentForm from "../forms/CommentForm";
 import {connect} from "react-redux";
 import PropTypes from 'prop-types';
-import {addComment} from "../../actions/comment";
+import {addComment} from "../../actions/blogs";
+import {CommentRow} from "./Comment";
 
 class CommentPage extends React.Component{
 
+    state = {
+        comments: []
+    };
+
+    componentWillReceiveProps(nextProps, nextContext) {
+        if(nextProps.comments !== this.state.comments){
+            this.setState({comments: nextProps.comments})
+        }
+    }
+
     submit = (data) =>
-        this.props.addComment({...data, id: this.props.id}).then(res => console.log(res))
+        this.props.addComment({...data, id: this.props.id})
 
     render() {
+        const {comments} = this.state;
+        const rows = comments.map((comment, index) => <CommentRow key={index} comment={comment}/>)
         return (
             <Comment.Group>
                 <Header as='h3' dividing>
                     Comments
                 </Header>
-
-                <Comment>
-                    <Comment.Content>
-                        <Comment.Author as='a'>Matt</Comment.Author>
-                        <Comment.Metadata>
-                            <div>Today at 5:42PM</div>
-                        </Comment.Metadata>
-                        <Comment.Text>How artistic!</Comment.Text>
-                    </Comment.Content>
-                </Comment>
-
+                {rows}
                <CommentForm submit={this.submit}/>
             </Comment.Group>
         )
@@ -35,7 +38,15 @@ class CommentPage extends React.Component{
 
 CommentPage.propTypes = {
    id: PropTypes.string,
+   comments: PropTypes.array,
    addComment: PropTypes.func.isRequired
 };
 
-export default connect(null, {addComment})(CommentPage);
+function mapStateToProps(state){
+    return {
+        comments: state.blog? state.blog.comments: [],
+        id: state.blog? state.blog._id: null
+    }
+}
+
+export default connect(mapStateToProps, {addComment})(CommentPage);

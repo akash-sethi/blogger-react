@@ -3,37 +3,49 @@ import PropTypes from 'prop-types';
 import {Container, Header} from "semantic-ui-react";
 import {getBlogDetail} from '../../actions/blogs'
 import CommentPage from "../pages/CommentPage";
+import {connect} from "react-redux";
+import Alert from "../messages/Alert";
 
 class BlogDetail extends React.Component {
 
     state = {
-        blog: {}
+        blog: {},
+        error: null
     };
 
     componentWillMount() {
-       getBlogDetail(this.props.id)
-           .then(blog => {
+       this.props.getBlogDetail(this.props.match.params.id)
+           .then(() => {
                this.setState({
-                   blog: blog
+                   blog: this.props.blog
                })
-           })
+           }).catch(e =>  console.log(e))
     }
 
-
     render() {
-        const {blog} = this.state;
+        const {blog, error} = this.state;
         return (
-            <Container text style={{ marginTop: '7em' }}>
-                <Header as='h2'>{blog.title}</Header>
-                <p dangerouslySetInnerHTML={{__html: blog.description}}/>
-                <CommentPage id={blog._id}/>
-            </Container>
+            <React.Fragment>
+                {error? <Alert header={error.header}/>:''}
+                <Container text style={{ marginTop: '7em' }}>
+                    <Header as='h2'>{blog.title}</Header>
+                    <p dangerouslySetInnerHTML={{__html: blog.description}}/>
+                    <CommentPage/>
+                </Container>
+            </React.Fragment>
+
         )
     }
 }
 
 BlogDetail.propTypes = {
-    id: PropTypes.string,
+    getBlogDetail: PropTypes.func,
+};
+
+function mapStateToProps(state){
+  return {
+      blog: state.blog
+  }
 }
 
-export default BlogDetail
+export default connect(mapStateToProps, {getBlogDetail})(BlogDetail)

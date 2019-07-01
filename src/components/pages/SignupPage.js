@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 class SignupPage extends React.Component{
     submit = (data) =>
-        this.props.signup(data).then(() => console.log('success'));
+        this.props.signup(data).then(() => this.props.history.push('/'));
 
     render(){
         return (
@@ -28,7 +28,10 @@ class SignupPage extends React.Component{
 }
 
 SignupPage.propTypes = {
-    signup : PropTypes.func.isRequired
+    signup : PropTypes.func.isRequired,
+    history: PropTypes.shape({
+        push: PropTypes.func.isRequired
+    }).isRequired
 }
 
 export default connect(null, { signup })(SignupPage)

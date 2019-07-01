@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 class LoginPage extends React.Component {
 
     submit = (data) =>
-        this.props.login(data).then(() => this.props.history.push("/"));
+        this.props.login(data).then(() => this.props.history.goBack());
 
     render() {
         return (
@@ -31,7 +31,7 @@ class LoginPage extends React.Component {
 LoginPage.propTypes = {
     login: PropTypes.func.isRequired,
     history: PropTypes.shape({
-        push: PropTypes.func.isRequired
+        goBack: PropTypes.func.isRequired
     }).isRequired,
 };
 

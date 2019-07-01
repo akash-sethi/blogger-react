@@ -6,12 +6,16 @@ export const blogList = blogs => ({
     blogs
 });
 
-export const blogDetail = blogs => ({
+export const blogDetail = blog => ({
     type: BLOG_DETAIL,
-    blogs
+    blog
 });
 
 export const getBlogs = () => dispatch =>
     api.blogs().then(data => dispatch(blogList(data)));
 
-export const getBlogDetail = (id) => api.blog(id);
+ export const getBlogDetail = (id) =>  dispatch =>
+    api.blog(id).then(blog => dispatch(blogDetail(blog)));
+
+export const addComment = data => dispatch =>
+    api.addComment(data).then(blog => dispatch(blogDetail(blog)));

@@ -2,6 +2,7 @@ import React from 'react';
 import {Button, Form} from "semantic-ui-react";
 import Alert from "../messages/Alert";
 import PropTypes from 'prop-types';
+import {connect} from "react-redux";
 
 class CommentForm extends React.Component{
 
@@ -27,7 +28,9 @@ class CommentForm extends React.Component{
             this.setState({
                 loading: true
             });
-            this.props.submit(this.state.data).catch(err =>{
+            this.props.submit(this.state.data)
+                .then(res => this.setState({ loading: false, data: { comment: ''} }))
+                .catch(err => {
                 this.setState({loading: false, error: { header: err.response.data.message}})
             })
         }
@@ -35,6 +38,10 @@ class CommentForm extends React.Component{
 
     validate = (data) => {
         let error = {};
+        if(!this.props.isAuthenticated){
+            error = { header: 'You have to signin to post a comment' }
+            return error;
+        }
         if(!data.comment) {
             error = { header: 'Invalid input', text: 'Please enter a comment' }
         }
@@ -54,8 +61,15 @@ class CommentForm extends React.Component{
 }
 
 CommentForm.propTypes = {
-   submit: PropTypes.func
+   submit: PropTypes.func,
+   isAuthenticated: PropTypes.bool
+};
+
+function mapStateToProps(state) {
+  return {
+      isAuthenticated: !!state.user && !!state.user.email
+  }
 }
 
-export default CommentForm;
+export default connect(mapStateToProps)(CommentForm);
 

@@ -1,6 +1,6 @@
 import { USER_LOGGED_IN, UPDATE_USER, USER_LOGGED_OUT } from "../types/action.types";
 import api from '../api';
-import {removeJWT} from "../utils";
+import {removeJWT} from "../utils/utils";
 
 export const userLoggedIn = user => ({
     type: USER_LOGGED_IN,
@@ -18,7 +18,7 @@ export const updateUser = user => ({
 
 export const signup = data => dispatch =>
   api.createUser(data).then(user => {
-    dispatch(userLoggedIn({data: user}));
+    dispatch(userLoggedIn(user));
   });
 
 export const login = data => dispatch =>
