@@ -6,14 +6,14 @@ import PropTypes from 'prop-types';
 import {addComment} from "../../actions/blogs";
 import {CommentRow} from "./Comment";
 
-class CommentPage extends React.Component{
+class CommentPage extends React.Component {
 
     state = {
         comments: []
     };
 
     componentWillReceiveProps(nextProps, nextContext) {
-        if(nextProps.comments !== this.state.comments){
+        if(nextProps.comments && nextProps.comments !== this.state.comments){
             this.setState({comments: nextProps.comments})
         }
     }

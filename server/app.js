@@ -6,7 +6,8 @@ var logger = require('morgan');
 const env =  require('dotenv');
 const mongoose = require('mongoose');
 env.config();
-const d = require('debug')('debug:app.js')
+const d = require('debug')('debug:app.js');
+require('./bootstrap')();
 
 var userR = require('./routes/user.route');
 var blogR = require('./routes/blog.route');

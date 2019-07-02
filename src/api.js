@@ -14,6 +14,8 @@ const api = {
             setJWT(res.headers['x-auth-token']);
             return res.data
         }),
+    validate: (token) =>
+        axios.get(`${BASE_PATH}/user/validate`, { headers: { Authorization: `${token}` } }),
     blogs : () =>
         axios.get(`${BASE_PATH}/blog`).then(res => res.data),
 

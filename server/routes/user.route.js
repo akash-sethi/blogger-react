@@ -8,6 +8,10 @@ router.get('/current', auth, async (req, res) => {
    return res.status(200).json(user)
 });
 
+router.get('/validate', auth, async (req, res) => {
+    return res.status(200).json({message: 'success'})
+});
+
 router.post('/save', async (req, res) => {
     const { error } = validateUser(req.body);
 
