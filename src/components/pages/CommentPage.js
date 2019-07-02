@@ -45,7 +45,6 @@ CommentPage.propTypes = {
 function mapStateToProps(state){
     return {
         comments: state.blog? state.blog.comments: [],
-        id: state.blog? state.blog._id: null
     }
 }
 

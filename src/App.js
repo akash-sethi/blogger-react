@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import TopNavigation from "./components/navigation/TopNavigation";
 import BlogDetail from "./components/blogs/BlogDetail";
 import {Route} from "react-router-dom";
+import Footer from "./components/navigation/Footer";
 
 const App = ({location}) => (
     <div>
@@ -16,6 +17,7 @@ const App = ({location}) => (
         <Route component={BlogDetail} path='/blog/:id' exact/>
         <GuestRoute location={location} path='/login' exact component={LoginPage}/>
         <GuestRoute location={location} path='/signup' exact component={SignupPage}/>
+        <Footer/>
     </div>
 );
 

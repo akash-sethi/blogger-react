@@ -30,7 +30,7 @@ class BlogDetail extends React.Component {
                 <Container text style={{ marginTop: '7em' }}>
                     <Header as='h2'>{blog.title}</Header>
                     <p dangerouslySetInnerHTML={{__html: blog.description}}/>
-                    <CommentPage/>
+                    <CommentPage id={this.props.match.params.id}/>
                 </Container>
             </React.Fragment>
 
