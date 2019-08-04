@@ -20,7 +20,7 @@ BlogApp is created for education purpose with MERN(Mongo,Express, React and Node
 ## With Docker
 
 - Docker(https://docs.docker.com/install/)
-- cd <project>
+- cd blogger-react
 - docker-compose build
 - docker-compose up
 
