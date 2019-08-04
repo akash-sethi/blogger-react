@@ -1,0 +1,25 @@
+version: "2"
+
+services:
+  server:
+    container_name: blog_api
+    restart: always
+    build: ./server
+    ports:
+      - 8080:8080
+    links:
+      - mongo
+  mongo:
+    container_name: blog_api_mongo
+    image: mongo
+    volumes:
+      - ./data:/data/db1
+    ports:
+      - 27017:27017
+
+  client:
+    container_name: blog_client
+    restart: always
+    build: ./client
+    ports:
+      - 3000:3000

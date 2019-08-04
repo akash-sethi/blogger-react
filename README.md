@@ -15,7 +15,17 @@ BlogApp is created for education purpose with MERN(Mongo,Express, React and Node
       - Comment addition feature
       - Redux store using thunk action setup for CRUD operations
 
-## prerequisite
+
+
+## With Docker
+
+- Docker(https://docs.docker.com/install/)
+- cd <project>
+- docker-compose build
+- docker-compose up
+
+
+## Without Docker(prerequisite)
 
 - Node, npm
 - MongoDB
